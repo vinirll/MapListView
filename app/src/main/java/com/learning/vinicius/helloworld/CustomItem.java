@@ -5,10 +5,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,11 +20,11 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class CustomItem extends FrameLayout {
 
-    public int myGeneratedFrameLayoutId;
+    public static int myGeneratedFrameLayoutId = 10101010;
 
     public CustomItem(Context context,Location location) {
         super(context);
-        myGeneratedFrameLayoutId = 10101010 + location.id; // choose any way you want to generate your view id
+        myGeneratedFrameLayoutId += location.id; // choose any way you want to generate your view id
 
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
@@ -42,7 +39,7 @@ public class CustomItem extends FrameLayout {
         view.addView(frame);
 
         GoogleMapOptions options = new GoogleMapOptions();
-        options.liteMode(true);
+        options.liteMode(true); //this makes it possible, otherwise your list view would be really slow
         MapFragment mapFrag = MapFragment.newInstance(options);
 
         mapFrag.getMapAsync(new MyMapCallback(location.lat,location.lng));
